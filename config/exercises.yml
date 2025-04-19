@@ -1,0 +1,30 @@
+- name: pronation_strap
+  display_name: "Pronation round pronator"
+  tags: ["pronation", "forearm"]
+  plan:
+    - week: 1
+      intensity: "heavy"
+      reps: 4
+      sets: 4
+      percent: 85
+    - week: 2
+      intensity: "medium"
+      reps: 6
+      sets: 4
+      percent: 75
+
+- name: hammer_curl
+  display_name: "Hammer curl"
+  tags: ["arm"]
+  plan:
+    - week: 1
+      intensity: "light"
+      reps: 10
+      sets: 3
+      percent: 60
+    - week: 2
+      intensity: "medium"
+      reps: 8
+      sets: 4
+      percent: 70
+
