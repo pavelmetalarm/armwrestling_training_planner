@@ -172,3 +172,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+
+# Commit Tips
+Conventional_Commits_tips.txt
