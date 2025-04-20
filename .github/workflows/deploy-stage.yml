@@ -1,0 +1,55 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - "feature/**"
+
+jobs:
+  deploy-stage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy to staging server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.TEST_SERVER_HOST }}
+          username: ${{ secrets.TEST_SERVER_USER }}
+          key: ${{ secrets.TEST_SERVER_SSH_KEY }}
+          script: |
+            BRANCH_NAME=${GITHUB_REF##*/}
+            SERVICE_NAME="armwrestling_training_bot_${BRANCH_NAME}"
+            PROJECT_DIR="armwrestling_training_planner_${BRANCH_NAME}"
+            PORT=$((10000 + $(echo "$BRANCH_NAME" | cksum | cut -d ' ' -f 1) % 1000))
+
+            echo "[STAGE DEPLOY] Cloning or pulling repo into $PROJECT_DIR"
+            if [ ! -d "$PROJECT_DIR" ]; then
+              git clone git@github.com:${{ github.repository }}.git "$PROJECT_DIR"
+              cd "$PROJECT_DIR"
+            else
+              cd "$PROJECT_DIR"
+              git pull origin ${{ github.ref_name }}
+            fi
+
+            echo "[STAGE DEPLOY] Creating virtual environment if missing"
+            if [ ! -d "venv" ]; then
+              python3 -m venv venv
+            fi
+            source venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements/base.txt
+
+            echo "[STAGE DEPLOY] Creating or updating systemd service $SERVICE_NAME from template"
+            TEMPLATE_PATH="$PROJECT_DIR/systemd/armwrestling_training_bot.service.template"
+            SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
+            sed "s|%BRANCH%|$BRANCH_NAME|g; \
+                 s|%USER%|${{ secrets.TEST_SERVER_USER }}|g; \
+                 s|%WORKDIR%|/home/${{ secrets.TEST_SERVER_USER }}/$PROJECT_DIR|g; \
+                 s|%PYTHONPATH%|/home/${{ secrets.TEST_SERVER_USER }}/$PROJECT_DIR/venv/bin/python3|g; \
+                 s|%PORT%|$PORT|g" $TEMPLATE_PATH | sudo tee $SERVICE_FILE > /dev/null
+
+            sudo systemctl daemon-reexec
+            sudo systemctl enable --now "$SERVICE_NAME"

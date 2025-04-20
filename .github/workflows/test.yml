@@ -1,15 +1,18 @@
-name: Run tests
+name: Code Quality & Tests
 
 on:
   push:
     branches-ignore:
       - main
+      - stage
+  pull_request:
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -19,9 +22,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          python -m pip install --upgrade pip
+          pip install -r requirements/dev.txt
 
-      - name: Run linter and tests
-        run: |
-          flake8 .
-          pytest
+      - name: Run black (check only)
+        run: black --check .
+
+      - name: Run flake8
+        run: flake8 .
+
+      - name: Run pytest
+        run: pytest

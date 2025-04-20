@@ -1,0 +1,12 @@
+[Unit]
+Description=Armwrestling Bot (%BRANCH%)
+After=network.target
+
+[Service]
+User=%USER%
+WorkingDirectory=%WORKDIR%
+ExecStart=%PYTHONPATH% main.py --port=%PORT%
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
