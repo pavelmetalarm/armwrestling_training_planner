@@ -10,8 +10,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      VENV_PATH: ".venv"
 
     steps:
       - name: Checkout repository
@@ -22,15 +20,8 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Create virtual environment if missing
-        run: |
-          if [ ! -d "$VENV_PATH" ]; then
-            python -m venv $VENV_PATH
-          fi
-
       - name: Install dependencies
         run: |
-          source $VENV_PATH/bin/activate
           python -m pip install --upgrade pip
           pip install -r requirements/dev.txt
 
