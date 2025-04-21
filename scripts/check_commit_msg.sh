@@ -21,7 +21,6 @@ header_length=${#commit_msg}
 max_length=51
 
 if (( header_length > max_length )); then
-  echo "⛔ Commit message header is too long ($header_length characters)"
-  echo "💡 Max allowed: $max_length"
+  echo "⛔ Header of commit message too long (${header_length}/${max_length})"
   exit 1
 fi
