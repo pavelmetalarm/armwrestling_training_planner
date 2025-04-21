@@ -23,10 +23,16 @@ jobs:
             echo "[GitHub Actions] Pulling latest changes..."
             cd ~/armwrestling_training_planner
             git pull origin main
-
+        
+            echo "[GitHub Actions] Creating virtual environment if missing..."
+            if [ ! -d "venv" ]; then
+              python3 -m venv venv
+            fi
+        
             echo "[GitHub Actions] Activating virtualenv..."
             source venv/bin/activate
-            pip install -r requirements/base.txt
-
+            pip install -r requirements.txt
+        
             # echo "[GitHub Actions] Restarting bot service..."
             # sudo systemctl restart armwrestling_training_bot
+        
