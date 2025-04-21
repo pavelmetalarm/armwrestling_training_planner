@@ -8,6 +8,8 @@ on:
 jobs:
   deploy-stage:
     runs-on: ubuntu-latest
+    env:
+      VENV_PATH: ".venv"
 
     steps:
       - name: Checkout repository
@@ -35,10 +37,10 @@ jobs:
             fi
 
             echo "[STAGE DEPLOY] Creating virtual environment if missing"
-            if [ ! -d "venv" ]; then
-              python3 -m venv venv
+            if [ ! -d "$VENV_PATH" ]; then
+              python3 -m venv $VENV_PATH
             fi
-            source venv/bin/activate
+            source $VENV_PATH/bin/activate
             pip install --upgrade pip
             pip install -r requirements/base.txt
 
@@ -48,7 +50,7 @@ jobs:
             sed "s|%BRANCH%|$BRANCH_NAME|g; \
                  s|%USER%|${{ secrets.TEST_SERVER_USER }}|g; \
                  s|%WORKDIR%|/home/${{ secrets.TEST_SERVER_USER }}/$PROJECT_DIR|g; \
-                 s|%PYTHONPATH%|/home/${{ secrets.TEST_SERVER_USER }}/$PROJECT_DIR/venv/bin/python3|g; \
+                 s|%PYTHONPATH%|/home/${{ secrets.TEST_SERVER_USER }}/$PROJECT_DIR/$VENV_PATH/bin/python3|g; \
                  s|%PORT%|$PORT|g" $TEMPLATE_PATH | sudo tee $SERVICE_FILE > /dev/null
 
             sudo systemctl daemon-reexec
