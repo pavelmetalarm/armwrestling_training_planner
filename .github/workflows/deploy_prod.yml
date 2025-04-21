@@ -31,7 +31,7 @@ jobs:
         
             echo "[GitHub Actions] Activating virtualenv..."
             source venv/bin/activate
-            pip install -r requirements.txt
+            pip install -r requirements/base.txt
         
             # echo "[GitHub Actions] Restarting bot service..."
             # sudo systemctl restart armwrestling_training_bot
