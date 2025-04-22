@@ -1,26 +1,24 @@
-##  What has been done
+### Summary
 
-Brief description of the changes introduced in this PR.
+Briefly describe the purpose of this pull request:
+- What is added or changed?
+- Why is it useful?
 
-##  Type of change
+### Changes
 
-- [ ] New feature 
-- [ ] Bug fix 
-- [ ] Refactoring 
-- [ ] Documentation update 
-- [ ] Technical task (CI, structure, config, etc.)
+- 
+- 
 
-##  How it was tested
-
-Explain how you verified that everything works. Local run, unit tests, CI, etc.
-
-##  Checklist
+### Testing
 
 - [ ] Code runs without errors
-- [ ] README updated if necessary
-- [ ] No merge conflicts with `dev`
-- [ ] Tested when needed
+- [ ] CI passed successfully
+- [ ] Manual check (if needed)
 
-##📝 Additional Notes
+### Notes (optional)
 
-Any additional context, links, screenshots, or TODOs.
+Add any context, screenshots, TODOs or follow-up ideas here.
+
+---
+
+_You can remove sections that are not relevant._

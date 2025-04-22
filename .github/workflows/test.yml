@@ -10,6 +10,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      VENV_PATH: ".venv"
 
     steps:
       - name: Checkout repository
@@ -29,7 +31,7 @@ jobs:
         run: black --check .
 
       - name: Run flake8
-        run: flake8 .
+        run: flake8 --exclude $VENV_PATH .
 
       - name: Run pytest
         run: pytest

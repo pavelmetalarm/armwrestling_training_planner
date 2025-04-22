@@ -1,7 +1,8 @@
 from dataclasses import dataclass, field
 from typing import List, Literal
 
-LoadType = Literal['light', 'medium', 'heavy']
+LoadType = Literal["light", "medium", "heavy"]
+
 
 @dataclass
 class ExerciseLoad:
@@ -10,6 +11,7 @@ class ExerciseLoad:
     reps: int
     sets: int
     percent: int  # of 1RM
+
 
 @dataclass
 class Exercise:
