@@ -12,8 +12,9 @@ Briefly describe the purpose of this pull request:
 ### Testing
 
 - [ ] Code runs without errors
-- [ ] CI passed successfully
-- [ ] Manual check (if needed)
+- [ ] README updated if necessary
+- [ ] No merge conflicts with `dev`
+- [ ] Tested when needed
 
 ### Notes (optional)
 
