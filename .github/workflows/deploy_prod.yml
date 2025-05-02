@@ -15,14 +15,14 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v3
 
-            - name: Upload env_vars.sh template to server
+            - name: Upload env.sh.template template to server
               uses: appleboy/scp-action@v0.1.4
               with:
                   host: ${{ secrets.SERVER_HOST }}
                   username: ${{ secrets.SERVER_USER }}
                   key: ${{ secrets.SERVER_SSH_KEY }}
                   source: .github/workflows/config_templates/env.sh.template
-                  target: ~/env_vars.sh
+                  target: ~
 
             - name: Deploy via SSH
               uses: appleboy/ssh-action@v1.0.3
@@ -36,7 +36,7 @@ jobs:
                       git pull origin main
 
                       echo "[GitHub Actions] Loading environment variables..."
-                      source ~/env_vars.sh
+                      source ~/env.sh.template
 
                       echo "[GitHub Actions] Creating virtual environment if missing..."
                       if [ ! -d "$VENV_PATH" ]; then
