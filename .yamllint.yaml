@@ -1,0 +1,23 @@
+---
+extends: default
+rules:
+    indentation:
+        spaces: 4
+        indent-sequences: consistent
+    line-length:
+        max: 79
+        allow-non-breakable-inline-mappings: true
+        ignore: |
+          .github/workflows/*
+    trailing-spaces:
+        level: warning
+    truthy:
+        level: warning
+        ignore: |
+          .github/workflows/*
+    comments:
+        require-starting-space: true
+    document-start:
+        present: true
+        ignore: |
+          .github/workflows/*
