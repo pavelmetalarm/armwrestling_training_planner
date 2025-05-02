@@ -1,40 +1,51 @@
+---
 name: Deploy to production
 
 on:
-  push:
-    branches:
-      - main
-      - ci/fix-prod-deploy #
+    push:
+        branches:
+            - main
+            - ci/fix-prod-deploy  # temporarily included for testing
 
 jobs:
-  deploy_prod:
-    runs-on: ubuntu-latest
-    env:
-      VENV_PATH: ".venv"
+    deploy_prod:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            echo "[GitHub Actions] Pulling latest changes..."
-            cd ~/armwrestling_training_planner
-            git pull origin main
+            - name: Upload env_vars.sh template to server
+              uses: appleboy/scp-action@v0.1.4
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USER }}
+                  key: ${{ secrets.SERVER_SSH_KEY }}
+                  source: .github/workflows/config_templates/env.sh.template
+                  target: ~/env_vars.sh
 
-            echo "[GitHub Actions] Creating virtual environment if missing..."
-            if [ ! -d "$VENV_PATH" ]; then
-              python3 -m venv "$VENV_PATH"
-            fi
+            - name: Deploy via SSH
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USER }}
+                  key: ${{ secrets.SERVER_SSH_KEY }}
+                  script: |
+                      echo "[GitHub Actions] Pulling latest changes..."
+                      cd ~/armwrestling_training_planner
+                      git pull origin main
 
-            echo "[GitHub Actions] Activating virtualenv..."
-            source "$VENV_PATH"/bin/activate
-            pip install -r requirements/base.txt
+                      echo "[GitHub Actions] Loading environment variables..."
+                      source ~/env_vars.sh
 
-            # echo "[GitHub Actions] Restarting bot service..."
-            # sudo systemctl restart armwrestling_training_bot
+                      echo "[GitHub Actions] Creating virtual environment if missing..."
+                      if [ ! -d "$VENV_PATH" ]; then
+                        python3 -m venv "$VENV_PATH"
+                      fi
+
+                      echo "[GitHub Actions] Activating virtualenv..."
+                      source "$VENV_PATH"/bin/activate
+                      pip install -r requirements/base.txt
+
+                      # echo "[GitHub Actions] Restarting bot service..."
+                      # sudo systemctl restart armwrestling_training_bot
