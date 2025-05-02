@@ -31,12 +31,26 @@ jobs:
                   username: ${{ secrets.SERVER_USER }}
                   key: ${{ secrets.SERVER_SSH_KEY }}
                   script: |
+
+                      echo "==============================="
+                      whoami
+                      echo "==============================="
+                      pwd
+                      echo "==============================="
+                      ls -lah
+                      echo "==============================="
+
+                      echo "==============================="
+
+                      echo "==============================="
+
                       echo "[GitHub Actions] Pulling latest changes..."
                       cd ~/armwrestling_training_planner
                       git pull origin main
 
                       echo "[GitHub Actions] Loading environment variables..."
                       if [ -f ~/env.sh.template ]; then
+                      cat ~/env.sh.template
                       source ~/env.sh.template
                       fi
 
