@@ -22,7 +22,7 @@ jobs:
                   username: ${{ secrets.SERVER_USER }}
                   key: ${{ secrets.SERVER_SSH_KEY }}
                   source: ./.github/workflows/config_templates/env.sh.template
-                  target: ~
+                  target: ~/
 
             - name: Deploy via SSH
               uses: appleboy/ssh-action@v1.0.3
