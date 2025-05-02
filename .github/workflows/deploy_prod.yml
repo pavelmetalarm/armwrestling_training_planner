@@ -36,7 +36,12 @@ jobs:
                       git pull origin main
 
                       echo "[GitHub Actions] Loading environment variables..."
+                      if [ -f ~/env.sh.template ]; then
                       source ~/env.sh.template
+                      fi
+
+                      echo "==============================="
+                      echo "$VENV_PATH"
 
                       echo "[GitHub Actions] Creating virtual environment if missing..."
                       if [ ! -d "$VENV_PATH" ]; then
