@@ -38,3 +38,7 @@ jobs:
                       git checkout "$BRANCH"
                       git pull origin "$BRANCH"
                     fi
+
+                    sudo ./preparations.sh
+                    sudo ./deploy_systemd.sh
+                    sudo ./restart_service.sh
