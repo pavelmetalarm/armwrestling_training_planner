@@ -42,6 +42,7 @@ jobs:
                     fi
 
                     cd $DEPLOY_DIR
+                    pwd
                     sudo ./preparations.sh
                     sudo ./deploy_systemd.sh
                     sudo ./restart_service.sh
