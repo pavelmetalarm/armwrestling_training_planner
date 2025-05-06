@@ -41,7 +41,7 @@ jobs:
                       git pull origin "$BRANCH"
                     fi
 
-                    cd DEPLOY_DIR
+                    cd $DEPLOY_DIR
                     sudo ./preparations.sh
                     sudo ./deploy_systemd.sh
                     sudo ./restart_service.sh
