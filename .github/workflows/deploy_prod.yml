@@ -43,3 +43,4 @@ jobs:
 
                     cd $DEPLOY_DIR
                     pwd
+                    cat ./preparations.sh
