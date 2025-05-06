@@ -25,6 +25,8 @@ jobs:
                     REPO="git@github.com:${{ github.repository }}.git"
                     BRANCH="${{ github.ref_name }}"
                     REPO_DIR="$HOME/armwrestling_training_planner"
+                    DEPLOY_DIR="$REPO_DIR/.deploy"
+
 
                     if [ ! -d "$REPO_DIR" ]; then
                       echo "[Deploy] Cloning repository to $REPO_DIR"
@@ -39,6 +41,7 @@ jobs:
                       git pull origin "$BRANCH"
                     fi
 
+                    cd DEPLOY_DIR
                     sudo ./preparations.sh
                     sudo ./deploy_systemd.sh
                     sudo ./restart_service.sh
