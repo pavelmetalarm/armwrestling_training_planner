@@ -12,9 +12,6 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-
             - name: Deploy via SSH
               uses: appleboy/ssh-action@v1.0.3
               with:
@@ -25,7 +22,6 @@ jobs:
                     REPO="git@github.com:${{ github.repository }}.git"
                     BRANCH="${{ github.ref_name }}"
                     REPO_DIR="$HOME/armwrestling_training_planner"
-                    DEPLOY_DIR="$REPO_DIR/.deploy"
 
 
                     if [ ! -d "$REPO_DIR" ]; then
