@@ -1,13 +1,13 @@
 ---
 name: Deploy to production
 
-# on:
-#     push:
-#         branches:
-#             - main
-#             - ci/fix-prod-deploy  # temporarily included for testing
 on:
-    workflow_dispatch:
+    push:
+        branches:
+            - main
+            - ci/fix-prod-deploy  # temporarily included for testing
+# on:
+#     workflow_dispatch:
 
 jobs:
     deploy_prod:
