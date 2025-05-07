@@ -36,7 +36,13 @@ jobs:
                       git checkout "$BRANCH"
                       git pull origin "$BRANCH"
                     fi
-
+            - name: Preparation
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USER }}
+                  key: ${{ secrets.SERVER_SSH_KEY }}
+                  script: |
                     echo "===================================================================="
                     echo "preparations.sh"
                     echo "===================================================================="
@@ -83,6 +89,13 @@ jobs:
                     echo "[Action] Deactivating virtual environment..."
                     deactivate
 
+            - name: Deploy systemd
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USER }}
+                  key: ${{ secrets.SERVER_SSH_KEY }}
+                  script: |
                     echo "===================================================================="
                     echo "deploy_systemd.sh"
                     echo "===================================================================="
