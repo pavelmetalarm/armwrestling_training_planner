@@ -62,12 +62,12 @@ jobs:
                         python3 -m pip install --upgrade pip
                     fi
 
-                    # 3. Check if requirements.txt exists
-                    if [ ! -f "requirements/base.txt" ]; then
+                    # 3. Check if requirements/base.txt exists
+                    if [ ! -f "$REPO_DIR/requirements/base.txt" ]; then
                         echo " requirements/base.txt not found"
                         exit 1
                     fi
-                    echo "[Check] Found requirements.txt"
+                    echo "[Check] Found requirements/base.txt"
 
                     # 4. Create virtual environment if missing
                     if [ ! -d "~/.venv" ]; then
@@ -83,7 +83,7 @@ jobs:
 
                     # 6. Install dependencies
                     echo "[Action] Installing dependencies..."
-                    pip install -r requirements/base.txt
+                    pip install -r "$REPO_DIR/requirements/base.txt"
 
                     # 5. Deactivate virtual environment
                     echo "[Action] Deactivating virtual environment..."
