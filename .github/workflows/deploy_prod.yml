@@ -41,6 +41,4 @@ jobs:
                       git pull origin "$BRANCH"
                     fi
 
-                    cd $DEPLOY_DIR
-                    pwd
-                    sudo ./preparations.sh
+                    sudo /home/armwrestling_training_bot/armwrestling_training_planner/.deploy/preparations.sh
