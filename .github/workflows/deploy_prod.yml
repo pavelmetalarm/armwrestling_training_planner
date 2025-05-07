@@ -49,6 +49,9 @@ jobs:
                     echo "preparations.sh"
                     echo "===================================================================="
 
+                    REPO_DIR="$HOME/armwrestling_training_planner"
+
+
                     # 1. Check Python version
                     echo "[Check] Python version:"
                     python3 --version || { echo " Python3 not found"; exit 1; }
