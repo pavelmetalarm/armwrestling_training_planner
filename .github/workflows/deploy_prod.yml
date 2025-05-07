@@ -95,7 +95,7 @@ jobs:
 
 
                     SERVICE_NAME="armwrestling_training_bot@${BRANCH}.service"
-                    TEMPLATE_PATH="../systemd/armwrestling_training_bot.service.template"
+                    TEMPLATE_PATH="$REPO_DIR/systemd/armwrestling_training_bot.service.template"
                     SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}"
                     TARGET_PATH="/etc/systemd/system/${SERVICE_NAME}"
 
