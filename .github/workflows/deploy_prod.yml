@@ -41,4 +41,4 @@ jobs:
                       git pull origin "$BRANCH"
                     fi
 
-                    sudo ./home/armwrestling_training_bot/armwrestling_training_planner/.deploy/preparations.sh
+                    sudo /home/armwrestling_training_bot/armwrestling_training_planner/.deploy/preparations.sh
