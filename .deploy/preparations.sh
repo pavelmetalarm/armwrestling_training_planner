@@ -15,6 +15,11 @@ else
     python3 -m pip install --upgrade pip
 fi
 
+
+# 2.5
+echo "PRINT CURR DIR"
+pwd
+
 # 3. Check if requirements.txt exists
 if [ ! -f "../requirements/base.txt" ]; then
     echo " ../requirements/base.txt not found"
