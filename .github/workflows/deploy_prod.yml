@@ -114,22 +114,14 @@ jobs:
 
                     SERVICE_NAME="armwrestling_training_bot@${BRANCH}.service"
                     TEMPLATE_PATH="$REPO_DIR/systemd/armwrestling_training_bot.service.template"
+                    TEMP_SERVICE_PATH="/tmp/$SERVICE_NAME"
                     SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}"
-                    TARGET_PATH="/etc/systemd/system/${SERVICE_NAME}"
+
 
                     echo "[Deploy] Generating systemd service file: $SERVICE_NAME"
+                    sudo envsubst < "$TEMPLATE_PATH" > "$TEMP_SERVICE_PATH"
+                    sudo cat "$TEMP_SERVICE_PATH" > "$SERVICE_PATH"
 
-
-                    echo "=========================="
-                    echo $SERVICE_NAME
-                    echo $TEMPLATE_PATH
-                    echo $SERVICE_PATH
-                    echo $TARGET_PATH
-
-                    echo "=========================="
-
-
-                    sudo envsubst < "$TEMPLATE_PATH" | sudo tee "$SERVICE_PATH" > /dev/null
 
                     echo "[Deploy] Reloading systemd daemon"
                     sudo systemctl daemon-reexec
