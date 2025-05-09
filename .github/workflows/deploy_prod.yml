@@ -110,7 +110,7 @@ jobs:
                     PORT="8080"
                     WORKDIR="/home/armwrestling_training_bot/armwrestling_training_planner"
                     PYTHONPATH="$WORKDIR/.venv/bin/python"
-
+                    REPO_DIR="$HOME/armwrestling_training_planner"
 
                     SERVICE_NAME="armwrestling_training_bot@${BRANCH}.service"
                     TEMPLATE_PATH="$REPO_DIR/systemd/armwrestling_training_bot.service.template"
