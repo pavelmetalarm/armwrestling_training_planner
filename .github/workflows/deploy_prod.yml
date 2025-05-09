@@ -118,7 +118,7 @@ jobs:
                     TARGET_PATH="/etc/systemd/system/${SERVICE_NAME}"
 
                     echo "[Deploy] Generating systemd service file: $SERVICE_NAME"
-                    sudo envsubst < "$TEMPLATE_PATH" > "$SERVICE_PATH"
+                    sudo envsubst < "$TEMPLATE_PATH" | sudo tee "$SERVICE_PATH" > /dev/null
 
                     echo "[Deploy] Reloading systemd daemon"
                     sudo systemctl daemon-reexec
