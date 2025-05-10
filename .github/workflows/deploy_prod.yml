@@ -117,21 +117,19 @@ jobs:
                     SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}"
 
 
-                    echo "[Deploy] creating systemd unit file"
+                    echo "[Templating] creating systemd unit file"
                     sudo bash -c "envsubst < \"$TEMPLATE_PATH\" > \"$SERVICE_PATH\""
 
 
-                    echo "[Deploy] Reloading systemd daemon"
-                    sudo systemctl daemon-reexec
-                    sudo systemctl daemon-reload
+                    # echo "[Deploy] Reloading systemd daemon"
+                    # sudo systemctl daemon-reload
 
-                    echo "[Deploy] Enabling and restarting service: $SERVICE_NAME"
-                    sudo systemctl enable "$SERVICE_NAME"
-                    sudo systemctl restart "$SERVICE_NAME"
+                    # echo "[Deploy] Enabling and restarting service: $SERVICE_NAME"
+                    # sudo systemctl enable "$SERVICE_NAME"
 
 
-                    if (sudo systemctl is-active --quiet "$SERVICE_NAME"); then
-                    echo "$SERVICE_NAME is Running!"
-                    else
-                    echo "$SERVICE_NAME has Stopped status!"
-                    fi
+                    # if (sudo systemctl is-active --quiet "$SERVICE_NAME"); then
+                    # echo "$SERVICE_NAME is Running!"
+                    # else
+                    # echo "$SERVICE_NAME has Stopped status!"
+                    # fi
