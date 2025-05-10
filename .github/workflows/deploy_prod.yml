@@ -117,7 +117,7 @@ jobs:
                     SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}"
 
 
-                    echo "[Deploy]
+                    echo "[Deploy] creating systemd unit file"
                     sudo envsubst < "$TEMPLATE_PATH" | sudo tee "$SERVICE_PATH" > /dev/null
 
 
