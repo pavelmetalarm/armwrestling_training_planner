@@ -119,7 +119,7 @@ jobs:
 
                     echo "[Templating] creating systemd unit file"
                     sudo bash -c "envsubst < \"$TEMPLATE_PATH\" > \"$SERVICE_PATH\""
-
+                    sudo cat "$SERVICE_PATH"
 
                     # echo "[Deploy] Reloading systemd daemon"
                     # sudo systemctl daemon-reload
