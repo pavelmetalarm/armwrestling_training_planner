@@ -121,7 +121,7 @@ jobs:
                     echo "[Deploy1] Generating systemd service file: $SERVICE_NAME"
                     sudo envsubst < "$TEMPLATE_PATH" > "$TEMP_SERVICE_PATH"
                     echo "[Deploy2] Generating systemd service file: $SERVICE_NAME"
-                    sudo cat "$TEMP_SERVICE_PATH" > "$SERVICE_PATH"
+                    sudo bash -c 'cat "$TEMP_SERVICE_PATH" > "$SERVICE_PATH"'
 
 
                     echo "[Deploy] Reloading systemd daemon"
