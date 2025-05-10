@@ -118,7 +118,7 @@ jobs:
 
 
                     echo "[Deploy] creating systemd unit file"
-                    sudo envsubst < "$TEMPLATE_PATH" | sudo tee "$SERVICE_PATH" > /dev/null
+                    sudo bash -c "envsubst < \"$TEMPLATE_PATH\" > \"$SERVICE_PATH\""
 
 
                     echo "[Deploy] Reloading systemd daemon"
