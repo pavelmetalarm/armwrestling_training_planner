@@ -129,5 +129,9 @@ jobs:
                     sudo systemctl enable "$SERVICE_NAME"
                     sudo systemctl restart "$SERVICE_NAME"
 
-                    sudo systemctl is-active --quiet "$SERVICE_NAME"
-                    echo "[Deploy] Done: $SERVICE_NAME is running"
+
+                    if (sudo systemctl is-active --quiet "$SERVICE_NAME"); then
+                    echo "$SERVICE_NAME is Running!"
+                    else
+                    echo "$SERVICE_NAME has Stopped status!"
+                    fi
