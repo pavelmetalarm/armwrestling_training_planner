@@ -1,11 +1,11 @@
 [Unit]
-Description=TEST  TESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTEST Armwrestling Bot ${BRANCH}
+Description=TEST  TESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTEST Armwrestling Bot $BRANCH
 After=network.target
 
 [Service]
-User=${USER}
-WorkingDirectory=${WORKDIR}
-ExecStart=.venv/bin/python3 /home/armwrestling_training_bot/armwrestling_training_planner/main.py --port=${PORT}
+User=$USER
+WorkingDirectory=$WORKDIR
+ExecStart=.venv/bin/python3 /home/armwrestling_training_bot/armwrestling_training_planner/main.py --port=$PORT
 Restart=always
 
 [Install]
