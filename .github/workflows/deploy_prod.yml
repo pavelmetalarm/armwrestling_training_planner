@@ -50,7 +50,7 @@ jobs:
                     echo "===================================================================="
 
                     REPO_DIR="$HOME/armwrestling_training_planner"
-
+                    PYTHON_VENV_PATH="$HOME/.venv"
 
                     # 1. Check Python version
                     echo "[Check] Python version:"
@@ -75,16 +75,16 @@ jobs:
                     echo "[Check] Found requirements/base.txt"
 
                     # 4. Create virtual environment if missing
-                    if [ ! -d "~/.venv" ]; then
+                    if [ ! -d "$PYTHON_VENV_PATH" ]; then
                         echo "[Action] Creating virtual environment..."
-                        python3 -m venv ~/.venv
+                        python3 -m venv $PYTHON_VENV_PATH
                     else
                         echo "[Skip] Virtual environment already exists"
                     fi
 
                     # 5. Activate virtual environment
                     echo "[Action] Activating virtual environment..."
-                    source ~/.venv/bin/activate
+                    source $PYTHON_VENV_PATH/bin/activate
 
                     # 6. Install dependencies
                     echo "[Action] Installing dependencies..."
@@ -93,33 +93,6 @@ jobs:
                     # 5. Deactivate virtual environment
                     echo "[Action] Deactivating virtual environment..."
                     deactivate
-
-            # - name: Deploy systemd
-            #   uses: appleboy/ssh-action@v1.0.3
-            #   with:
-            #       host: ${{ secrets.SERVER_HOST }}
-            #       username: ${{ secrets.SERVER_USER }}
-            #       key: ${{ secrets.SERVER_SSH_KEY }}
-            #       script: |
-            #         echo "===================================================================="
-            #         echo "deploy_systemd.sh"
-            #         echo "===================================================================="
-
-            #         BRANCH="main"
-            #         USER="armwrestling_training_bot"
-            #         PORT="8080"
-            #         WORKDIR="/home/armwrestling_training_bot/armwrestling_training_planner"
-            #         PYTHONPATH="$WORKDIR/.venv/bin/python"
-            #         REPO_DIR="$HOME/armwrestling_training_planner"
-
-            #         SERVICE_NAME="armwrestling_training_bot@${BRANCH}.service"
-            #         TEMPLATE_PATH="$REPO_DIR/systemd/armwrestling_training_bot.service.template"
-            #         SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}"
-
-
-            #         echo "[Templating] creating systemd unit file"
-            #         sudo bash -c "envsubst < \"$TEMPLATE_PATH\" > \"$SERVICE_PATH\""
-            #         sudo cat "$SERVICE_PATH"
 
             - name: Generate and deploy systemd unit
               uses: appleboy/ssh-action@v1.0.3
@@ -132,7 +105,7 @@ jobs:
                     USER="armwrestling_training_bot"
                     PORT="8080"
                     WORKDIR="/home/armwrestling_training_bot/armwrestling_training_planner"
-                    PYTHONPATH="$WORKDIR/.venv/bin/python"
+                    # PYTHON_VENV_PATH="$WORKDIR/.venv/bin/python"
                     REPO_DIR="$HOME/armwrestling_training_planner"
 
                     SERVICE_NAME="armwrestling_training_bot@${BRANCH}.service"
@@ -140,20 +113,20 @@ jobs:
                     TMP_SERVICE_PATH="/tmp/${SERVICE_NAME}"
                     SYSTEMD_SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}"
 
-                    # Генерация unit-файла
+                    # echo "Генерация unit-файла"
                     envsubst < "${TEMPLATE_PATH}" > "${TMP_SERVICE_PATH}"
 
-                    # Копирование unit-файла в /etc/systemd/system/ с правами root
+                    # echo "Копирование unit-файла в /etc/systemd/system/ с правами root"
                     sudo cp "${TMP_SERVICE_PATH}" "${SYSTEMD_SERVICE_PATH}"
 
-                    # Перезагрузка systemd для регистрации изменений
+                    # echo "Перезагрузка systemd для регистрации изменений"
                     sudo systemctl daemon-reload
 
-                    # Активация и запуск сервиса
+                    # echo "Активация и запуск сервиса"
                     sudo systemctl enable --now "${SERVICE_NAME}"
 
-                    # Удаление временного файла
+                    # echo "Удаление временного файла"
                     rm "${TMP_SERVICE_PATH}"
 
-                    # Проверка статуса сервиса
+                    # echo "Проверка статуса сервиса"
                     sudo systemctl status "${SERVICE_NAME}"
