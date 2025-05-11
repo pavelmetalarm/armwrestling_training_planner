@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 User=$USER
-WorkingDirectory=$WORKDIR
-ExecStart=.venv/bin/python3 /home/armwrestling_training_bot/armwrestling_training_planner/main.py --port=$PORT
+WorkingDirectory=/home/armwrestling_training_bot
+ExecStart=/home/armwrestling_training_bot/.venv/bin/python3 /home/armwrestling_training_bot/armwrestling_training_planner/main.py --port=$PORT
 Restart=always
 
 [Install]
