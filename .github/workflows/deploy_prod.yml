@@ -143,4 +143,5 @@ jobs:
                     echo "OK"
                     else
                     echo "PROBLEM"
+                    exit 1
                     fi
