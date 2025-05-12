@@ -6,7 +6,7 @@ After=network.target
 User=$USER
 WorkingDirectory=$WORKDIR
 ExecStart=$PYTHON_VENV_PATH $WORKDIR/main.py --port=$PORT
-Restart=always
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
