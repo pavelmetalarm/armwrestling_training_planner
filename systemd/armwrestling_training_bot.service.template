@@ -1,11 +1,11 @@
 [Unit]
-Description=TEST  TESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTEST Armwrestling Bot $BRANCH
+Description=Armwrestling Bot $BRANCH
 After=network.target
 
 [Service]
 User=$USER
-WorkingDirectory=/home/armwrestling_training_bot
-ExecStart=/home/armwrestling_training_bot/.venv/bin/python3 /home/armwrestling_training_bot/armwrestling_training_planner/main.py --port=$PORT
+WorkingDirectory=$WORKDIR
+ExecStart=$PYTHON_VENV_PATH $WORKDIR/main.py --port=$PORT
 Restart=always
 
 [Install]
