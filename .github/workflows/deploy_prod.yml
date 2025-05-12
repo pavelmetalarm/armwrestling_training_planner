@@ -123,19 +123,27 @@ jobs:
 
                     echo "============================================================="
                     echo "Копирование unit-файла в /etc/systemd/system/ с правами root"
-                    sudo cp "${TMP_SERVICE_PATH}" "${SYSTEMD_SERVICE_PATH}"
+                    sudo cp "${TMP_SERVICE_PATH}" "${SYSTEMD_SERVICE_PATH}" && \
+                    echo "Успешно"
 
                     echo "============================================================="
                     echo "Перезагрузка systemd для регистрации изменений"
-                    sudo systemctl daemon-reload
+                    sudo systemctl daemon-reload && \
+                    echo "Успешно"
 
                     echo "============================================================="
                     echo "Активация и запуск сервиса"
-                    sudo systemctl enable --now "${SERVICE_NAME}"
+                    sudo systemctl enable --now "${SERVICE_NAME}" && \
+                    echo "Успешно"
 
                     echo "============================================================="
                     echo "Удаление временного файла"
-                    rm "${TMP_SERVICE_PATH}"
+                    rm "${TMP_SERVICE_PATH}" && \
+                    echo "Успешно"
 
                     echo "Проверка статуса сервиса"
-                    sudo systemctl status "${SERVICE_NAME}"
+                    if (sudo systemctl is-active  "${SERVICE_NAME}" > /dev/null); then
+                    echo "Успешно"
+                    else
+                    echo "Сервис не поднялся"
+                    fi
