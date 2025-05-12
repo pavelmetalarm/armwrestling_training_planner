@@ -1,28 +1,35 @@
+---
 default_stages: [pre-commit]
 repos:
-  - repo: local
-    hooks:
-      - id: check-commit-msg
-        name: Check commit message follows Conventional Commits
-        entry: ./scripts/check_commit_msg.sh
-        language: script
-        stages: [commit-msg]
+    - repo: local
+      hooks:
+          - id: check-commit-msg
+            name: Check commit message follows Conventional Commits
+            entry: ./scripts/check_commit_msg.sh
+            language: script
+            stages: [commit-msg]
 
-  - repo: git@github.com:psf/black.git
-    rev: 23.12.1
-    hooks:
-    -   id: black
-        args: [--line-length=79]
+    - repo: git@github.com:psf/black.git
+      rev: 25.1.0
+      hooks:
+          - id: black
+            args: [--line-length=79]
 
-  - repo: git@github.com:PyCQA/flake8.git
-    rev: 7.0.0
-    hooks:
-      - id: flake8
+    - repo: git@github.com:PyCQA/flake8.git
+      rev: 7.2.0
+      hooks:
+          - id: flake8
 
-  - repo: git@github.com:pre-commit/pre-commit-hooks.git
-    rev: v4.5.0
-    hooks:
-    -   id: check-yaml
-    -   id: debug-statements
-    -   id: end-of-file-fixer
-    -   id: trailing-whitespace
+    - repo: git@github.com:pre-commit/pre-commit-hooks.git
+      rev: v5.0.0
+      hooks:
+          - id: check-yaml
+          - id: debug-statements
+          - id: end-of-file-fixer
+          - id: trailing-whitespace
+
+    - repo: https://github.com/adrienverge/yamllint.git
+      rev: v1.21.0
+      hooks:
+          - id: yamllint
+            files: \.(yml|yaml)$
