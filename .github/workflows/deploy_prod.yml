@@ -115,35 +115,32 @@ jobs:
 
 
                     echo "============================================================="
-                    echo "Генерация unit-файла"
-                    cat "$TEMPLATE_PATH"
-
-
+                    echo "Generation of unit-file"
                     envsubst < "${TEMPLATE_PATH}" > "${TMP_SERVICE_PATH}"
 
                     echo "============================================================="
-                    echo "Копирование unit-файла в /etc/systemd/system/ с правами root"
+                    echo "Copying unit-file at /etc/systemd/system/"
                     sudo cp "${TMP_SERVICE_PATH}" "${SYSTEMD_SERVICE_PATH}" && \
-                    echo "Успешно"
+                    echo "OK"
 
                     echo "============================================================="
-                    echo "Перезагрузка systemd для регистрации изменений"
+                    echo "Systemd reload"
                     sudo systemctl daemon-reload && \
-                    echo "Успешно"
+                    echo "OK"
 
                     echo "============================================================="
-                    echo "Активация и запуск сервиса"
+                    echo "Activation and starting service"
                     sudo systemctl enable --now "${SERVICE_NAME}" && \
-                    echo "Успешно"
+                    echo "OK"
 
                     echo "============================================================="
-                    echo "Удаление временного файла"
+                    echo "Removing temp files"
                     rm "${TMP_SERVICE_PATH}" && \
-                    echo "Успешно"
+                    echo "OK"
 
-                    echo "Проверка статуса сервиса"
+                    echo "Check service status"
                     if (sudo systemctl is-active  "${SERVICE_NAME}" > /dev/null); then
-                    echo "Успешно"
+                    echo "OK"
                     else
-                    echo "Сервис не поднялся"
+                    echo "PROBLEM"
                     fi
