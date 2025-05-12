@@ -105,7 +105,7 @@ jobs:
                     export USER="armwrestling_training_bot"
                     export PORT="8080"
                     export WORKDIR="/home/armwrestling_training_bot/armwrestling_training_planner"
-                    export PYTHON_VENV_PATH="$WORKDIR/.venv/bin/python3"
+                    export PYTHON_INTERPRETER_PATH="$WORKDIR/.venv/bin/python3"
                     export REPO_DIR="$HOME/armwrestling_training_planner"
 
                     export SERVICE_NAME="armwrestling_training_bot@${BRANCH}.service"
