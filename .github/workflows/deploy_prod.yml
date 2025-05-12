@@ -138,6 +138,16 @@ jobs:
                     rm "${TMP_SERVICE_PATH}" && \
                     echo "OK"
 
+                    echo "============================================================="
+                    echo "Restart service"
+                    if (sudo systemctl restart  "${SERVICE_NAME}" > /dev/null); then
+                    echo "OK"
+                    else
+                    echo "PROBLEM"
+                    exit 1
+                    fi
+
+                    echo "============================================================="
                     echo "Check service status"
                     if (sudo systemctl is-active  "${SERVICE_NAME}" > /dev/null); then
                     echo "OK"
